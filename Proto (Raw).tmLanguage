@@ -24,6 +24,10 @@
 		</dict>
 		<dict>
 			<key>include</key>
+			<string>#service</string>
+		</dict>
+		<dict>
+			<key>include</key>
 			<string>#option</string>
 		</dict>
 		<dict>
@@ -95,6 +99,11 @@
 					<key>name</key>
 					<string>keyword.source.proto</string>
 				</dict>
+				<key>3</key>
+				<dict>
+					<key>name</key>
+					<string>entity.name.type.proto</string>
+				</dict>
 			</dict>
 			<key>end</key>
 			<string>\}</string>
@@ -143,6 +152,11 @@
 				<dict>
 					<key>name</key>
 					<string>keyword.source.proto</string>
+				</dict>
+				<key>3</key>
+				<dict>
+					<key>name</key>
+					<string>entity.name.type.proto</string>
 				</dict>
 			</dict>
 			<key>end</key>
@@ -214,7 +228,7 @@
 				</dict>
 				<dict>
 					<key>match</key>
-					<string>default|packed|optimize\_for|java\_package|java\_outer\_classname|go\_package</string>
+					<string>default|packed|optimize\_for|java\_package|java\_outer\_classname|go\_package|deprecated|lazy</string>
 					<key>name</key>
 					<string>storage.type.proto</string>
 				</dict>
@@ -223,6 +237,134 @@
 					<string>(CODE\_SIZE|SPEED)</string>
 					<key>name</key>
 					<string>constant.language.proto</string>
+				</dict>
+			</array>
+		</dict>
+		<key>rpc</key>
+		<dict>
+			<key>begin</key>
+			<string>(rpc)(\s*)([A-Za-z][A-Za-z0-9_]*)(\s*)(\()(\s*)([A-Za-z][A-Za-z0-9_]*)(\s*)(\))(\s*)(returns)(\s*)(\()(\s*)([A-Za-z][A-Za-z0-9_]*)(\s*)(\))(\s*)(?!\{)</string>
+			<key>beginCaptures</key>
+			<dict>
+				<key>1</key>
+				<dict>
+					<key>name</key>
+					<string>keyword.source.proto</string>
+				</dict>
+				<key>15</key>
+				<dict>
+					<key>name</key>
+					<string>variable.parameter.proto</string>
+				</dict>
+				<key>3</key>
+				<dict>
+					<key>name</key>
+					<string>entity.name.function.proto</string>
+				</dict>
+				<key>7</key>
+				<dict>
+					<key>name</key>
+					<string>variable.parameter.proto</string>
+				</dict>
+			</dict>
+			<key>end</key>
+			<string>;</string>
+		</dict>
+		<key>rpc_option</key>
+		<dict>
+			<key>begin</key>
+			<string>(\{)</string>
+			<key>end</key>
+			<string>(\})</string>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>include</key>
+					<string>#option</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#comments</string>
+				</dict>
+			</array>
+		</dict>
+		<key>rpc_with_options</key>
+		<dict>
+			<key>begin</key>
+			<string>(rpc)(\s*)([A-Za-z][A-Za-z0-9_]*)(\s*)(\()(\s*)([A-Za-z][A-Za-z0-9_]*)(\s*)(\))(\s*)(returns)(\s*)(\()(\s*)([A-Za-z][A-Za-z0-9_]*)(\s*)(\))(\s*)(\{)</string>
+			<key>beginCaptures</key>
+			<dict>
+				<key>1</key>
+				<dict>
+					<key>name</key>
+					<string>keyword.source.proto</string>
+				</dict>
+				<key>15</key>
+				<dict>
+					<key>name</key>
+					<string>variable.parameter.proto</string>
+				</dict>
+				<key>3</key>
+				<dict>
+					<key>name</key>
+					<string>entity.name.function.proto</string>
+				</dict>
+				<key>7</key>
+				<dict>
+					<key>name</key>
+					<string>variable.parameter.proto</string>
+				</dict>
+			</dict>
+			<key>end</key>
+			<string>\}</string>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>include</key>
+					<string>#option</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#comments</string>
+				</dict>
+			</array>
+		</dict>
+		<key>service</key>
+		<dict>
+			<key>begin</key>
+			<string>(service)(\s*)([A-Za-z][A-Za-z0-9_]*)(\s*)(\s*)(\{)</string>
+			<key>beginCaptures</key>
+			<dict>
+				<key>1</key>
+				<dict>
+					<key>name</key>
+					<string>keyword.source.proto</string>
+				</dict>
+				<key>3</key>
+				<dict>
+					<key>name</key>
+					<string>entity.name.function.proto</string>
+				</dict>
+			</dict>
+			<key>end</key>
+			<string>\}</string>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>include</key>
+					<string>#comments</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#rpc_with_options</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#rpc</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#option</string>
 				</dict>
 			</array>
 		</dict>

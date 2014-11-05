@@ -21,6 +21,9 @@
 		"beginCaptures": {
 			"1": {
 				"name": "keyword.source.proto"
+			},
+			"3": {
+				"name": "entity.name.type.proto"
 			}
 		},
 		"patterns": [
@@ -40,11 +43,76 @@
 		],
 		"end": "\\}"
 	},
+	"rpc_option": {
+		"begin": "(\\{)",
+		"end": "(\\})",
+		"patterns": [
+			{ "include": "#option" },
+			{ "include": "#comments" }
+		]
+	},
+	"rpc": {
+		"begin": "(rpc)(\\s*)([A-Za-z][A-Za-z0-9_]*)(\\s*)(\\()(\\s*)([A-Za-z][A-Za-z0-9_]*)(\\s*)(\\))(\\s*)(returns)(\\s*)(\\()(\\s*)([A-Za-z][A-Za-z0-9_]*)(\\s*)(\\))(\\s*)(?!\\{)",
+		"beginCaptures": {
+			"1": {
+				"name": "keyword.source.proto"
+			},
+			"3": {
+				"name": "entity.name.function.proto"
+			},
+			"7": {
+				"name": "variable.parameter.proto"
+			},
+			"15": {
+				"name": "variable.parameter.proto"
+			}
+		},
+		"end": ";"
+	},
+	"rpc_with_options": {
+		"begin": "(rpc)(\\s*)([A-Za-z][A-Za-z0-9_]*)(\\s*)(\\()(\\s*)([A-Za-z][A-Za-z0-9_]*)(\\s*)(\\))(\\s*)(returns)(\\s*)(\\()(\\s*)([A-Za-z][A-Za-z0-9_]*)(\\s*)(\\))(\\s*)(\\{)",
+		"beginCaptures": {
+			"1": {
+				"name": "keyword.source.proto"
+			},
+			"3": {
+				"name": "entity.name.function.proto"
+			},
+			"7": {
+				"name": "variable.parameter.proto"
+			},
+			"15": {
+				"name": "variable.parameter.proto"
+			}
+		},
+		"patterns": [
+			{ "include": "#option" },
+			{ "include": "#comments" }
+		],
+		"end": "\\}"
+	},
+	"service": {
+		"begin": "(service)(\\s*)([A-Za-z][A-Za-z0-9_]*)(\\s*)(\\s*)(\\{)",
+		"beginCaptures": {
+			"1": { "name": "keyword.source.proto" },
+			"3": { "name": "entity.name.function.proto" }
+		},
+		"end": "\\}",
+		"patterns": [
+			{ "include": "#comments" },
+			{ "include": "#rpc_with_options" },
+			{ "include": "#rpc" },
+			{ "include": "#option" }
+		]
+	},
 	"message": {
 		"begin": "(message|extend)(\\s*)([A-Za-z][A-Za-z0-9_.]*)(\\s*)(\\{)",
 		"beginCaptures": {
 			"1": {
 				"name": "keyword.source.proto"
+			},
+			"3": {
+				"name": "entity.name.type.proto"
 			}
 		},
 		"end": "\\}",
@@ -111,6 +179,9 @@
   	},
   	{
   		"include": "#message"
+  	},
+  	{
+  		"include": "#service"
   	},
   	{
   		"include": "#option"
